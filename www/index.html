@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amma's 51st Birthday Widescreen Creator</title>
+    <!-- Tailwind CSS (Local) -->
+    <script src="js/tailwind.js"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@900&family=Great+Vibes&family=Montserrat:wght@400;600;700&family=Playfair+Display:ital,wght@0,700;1,600&display=swap" rel="stylesheet">
+    <!-- Lucide Icons (Local) -->
+    <script src="js/lucide.min.js"></script>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #090d16;
+            color: #f1f5f9;
+        }
+        .slide-frame {
+            position: relative;
+            aspect-ratio: 16 / 9;
+            width: 100%;
+            max-width: 760px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between p-3 md:p-6">
+
+    <div class="max-w-6xl w-full mx-auto bg-slate-900 rounded-2xl border border-slate-800 overflow-hidden shadow-2xl flex flex-col lg:flex-row">
+        
+        <!-- Left Editing Column -->
+        <div class="w-full lg:w-[400px] p-5 border-b lg:border-b-0 lg:border-r border-slate-800 flex flex-col gap-4 bg-slate-950/40">
+            <div>
+                <h2 class="text-base font-bold text-white flex items-center gap-2">
+                    <i data-lucide="edit" class="text-rose-500 w-5 h-5"></i> Edit Wording
+                </h2>
+                <p class="text-xs text-slate-400 mt-0.5">Changes will apply to the image below instantly.</p>
+            </div>
+
+            <!-- Templates -->
+            <div class="space-y-1.5">
+                <label class="block text-[11px] font-bold uppercase tracking-wider text-amber-400">Quick Layout Presets</label>
+                <div class="grid grid-cols-3 gap-1">
+                    <button onclick="applyPreset(0)" class="p-2 text-[10px] bg-slate-800 hover:bg-slate-700 rounded-lg font-semibold text-rose-300 transition">Theme 1</button>
+                    <button onclick="applyPreset(1)" class="p-2 text-[10px] bg-slate-800 hover:bg-slate-700 rounded-lg font-semibold text-amber-300 transition">Theme 2</button>
+                    <button onclick="applyPreset(2)" class="p-2 text-[10px] bg-slate-800 hover:bg-slate-700 rounded-lg font-semibold text-blue-300 transition">Theme 3</button>
+                </div>
+            </div>
+
+            <div class="space-y-3 text-xs">
+                <div>
+                    <label class="block text-slate-400 mb-1 font-medium">Header / Milestone Text</label>
+                    <input type="text" id="edit-banner" value="CELEBRATING 51 GOLDEN YEARS" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white font-medium focus:outline-none focus:border-rose-500">
+                </div>
+
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label class="block text-slate-400 mb-1 font-medium">Greeting</label>
+                        <input type="text" id="edit-greeting" value="Happy Birthday" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-rose-500">
+                    </div>
+                    <div>
+                        <label class="block text-slate-400 mb-1 font-medium">Name</label>
+                        <input type="text" id="edit-name" value="Amma" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white font-bold focus:outline-none focus:border-rose-500">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-slate-400 mb-1 font-medium">Main Paragraph Message</label>
+                    <textarea id="edit-message" rows="3" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-white leading-relaxed resize-none focus:outline-none focus:border-rose-500">Happy 51st Birthday to the Queen of our home, my dearest Amma! Your grace, endless love, and beautiful strength inspire our family every single day. ✨❤️</textarea>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2 pt-2 border-t border-slate-800">
+                    <div>
+                        <label class="block text-slate-400 mb-1">Color Palette</label>
+                        <select id="select-color" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-2 py-1.5 text-white">
+                            <option value="royal-maroon">Royal Maroon & Gold</option>
+                            <option value="rose-gold">Rose Gold Romance</option>
+                            <option value="midnight-blue">Midnight Blue Luxury</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-slate-400 mb-1">Font Choice</label>
+                        <select id="select-font" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-2 py-1.5 text-white">
+                            <option value="'Great Vibes', cursive">Great Vibes (Elegant)</option>
+                            <option value="'Alex Brush', cursive">Alex Brush (Fine Calligraphy)</option>
+                            <option value="'Playfair Display', serif">Playfair Serif</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-2 p-3 bg-amber-950/30 border border-amber-500/20 rounded-xl">
+                <p class="text-[11px] text-amber-200/90 leading-normal flex items-start gap-1.5">
+                    <i data-lucide="info" class="w-4 h-4 text-amber-400 shrink-0 mt-0.5"></i>
+                    <span><strong>App Sandbox Fix:</strong> The slide down below is an active, native image file. To save it directly to your mobile gallery, simply <strong>press and hold your finger down on the slide image</strong> and choose <strong>"Save Image"</strong>!</span>
+                </p>
+            </div>
+        </div>
+
+        <!-- Right Output Display Area -->
+        <div class="flex-1 p-5 md:p-6 flex flex-col justify-center items-center bg-slate-950/20 gap-4">
+            
+            <div class="w-full max-w-[760px]">
+                <div class="flex justify-between items-center mb-1.5 px-1">
+                    <span class="text-xs font-bold text-rose-400 flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-rose-500 animate-ping"></span>
+                        Your Ready-To-Save Video Slide:
+                    </span>
+                    <span class="text-[11px] text-slate-500 tracking-wider font-semibold">16:9 WIDESCREEN (1080p HD)</span>
+                </div>
+
+                <!-- Live Safe Image Output Display -->
+                <div class="slide-frame bg-slate-950 border border-slate-800">
+                    <img id="output-native-image" src="" alt="Amma Birthday Slide" class="w-full h-full object-cover cursor-pointer select-none" title="Long press to save to gallery">
+                </div>
+            </div>
+
+            <!-- Visual instructions badge -->
+            <div class="w-full max-w-[760px] bg-slate-900 border border-slate-800 p-3 rounded-xl flex items-center justify-between">
+                <span class="text-xs text-slate-400 font-medium"> 👇 Hold your finger on the image above to download</span>
+                <span class="text-xs bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2.5 py-1 rounded-full font-bold">Bug Patched ✅</span>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Hidden calculation canvas used to bake pixel-perfect HD images -->
+    <canvas id="hidden-engine-canvas" class="hidden" width="1920" height="1080"></canvas>
+
+    <script>
+        const canvas = document.getElementById('hidden-engine-canvas');
+        const ctx = canvas.getContext('2d');
+        const nativeImgOutput = document.getElementById('output-native-image');
+
+        // Inputs
+        const bannerIn = document.getElementById('edit-banner');
+        const greetingIn = document.getElementById('edit-greeting');
+        const nameIn = document.getElementById('edit-name');
+        const messageIn = document.getElementById('edit-message');
+        const colorIn = document.getElementById('select-color');
+        const fontIn = document.getElementById('select-font');
+
+        const presets = [
+            { banner: "CELEBRATING 51 GOLDEN YEARS", greeting: "Happy Birthday", name: "Amma", msg: "Happy 51st Birthday to the Queen of my heart, my dearest Amma! Your grace, love, and strength inspire us every single day. ✨❤️" },
+            { banner: "WISHING YOU COPIOUS BLESSINGS", greeting: "Happy 51st", name: "Amma", msg: "51 Golden Years of spreading pure love, warmth, and beautiful guidance. Thank you for making our whole world so bright and happy!" },
+            { banner: "TO THE QUEEN OF OUR HOME", greeting: "Dearest", name: "Amma", msg: "To the world you are a mother, but to our family you are our entire world. Happy 51st Birthday, Amma! We love you infinitely." }
+        ];
+
+        const themes = {
+            'royal-maroon': { start: '#2e040f', end: '#0a0104', line: 'rgba(245, 158, 11, 0.45)', highlight: '#f59e0b', text: '#ffffff' },
+            'rose-gold': { start: '#2b0e1a', end: '#0d0308', line: 'rgba(244, 63, 94, 0.4)', highlight: '#f43f5e', text: '#ffe4e6' },
+            'midnight-blue': { start: '#091124', end: '#02050c', line: 'rgba(56, 189, 248, 0.45)', highlight: '#38bdf8', text: '#f0f9ff' }
+        };
+
+        function applyPreset(idx) {
+            bannerIn.value = presets[idx].banner;
+            greetingIn.value = presets[idx].greeting;
+            nameIn.value = presets[idx].name;
+            messageIn.value = presets[idx].msg;
+            bakeHighResSlide();
+        }
+
+        function bakeHighResSlide() {
+            const currentTheme = themes[colorIn.value];
+            const currentFont = fontIn.value;
+
+            // Clear frame
+            ctx.clearRect(0, 0, 1920, 1080);
+
+            // 1. Draw Background Gradient
+            const grad = ctx.createRadialGradient(960, 540, 100, 960, 540, 1100);
+            grad.addColorStop(0, currentTheme.start);
+            grad.addColorStop(1, currentTheme.end);
+            ctx.fillStyle = grad;
+            ctx.fillRect(0, 0, 1920, 1080);
+
+            // 2. Decorative Premium Framing
+            ctx.strokeStyle = currentTheme.line;
+            ctx.lineWidth = 4;
+            ctx.strokeRect(60, 60, 1800, 960);
+            ctx.strokeStyle = 'rgba(255,255,255,0.07)';
+            ctx.lineWidth = 1;
+            ctx.strokeRect(76, 76, 1768, 928);
+
+            // Corner Accents
+            drawCorner(60, 60, 1, 1, currentTheme.highlight);
+            drawCorner(1860, 60, -1, 1, currentTheme.highlight);
+            drawCorner(60, 1020, 1, -1, currentTheme.highlight);
+            drawCorner(1860, 1020, -1, -1, currentTheme.highlight);
+
+            ctx.textAlign = 'center';
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.65)';
+            ctx.shadowBlur = 14;
+
+            // 3. Render Title Banner Text
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.75)';
+            ctx.font = "bold 32px 'Montserrat', sans-serif";
+            ctx.letterSpacing = "6px";
+            ctx.fillText(bannerIn.value.toUpperCase(), 960, 210);
+            ctx.letterSpacing = "0px";
+
+            drawDividerLine(960, 250, 180, currentTheme.highlight);
+
+            // Gold Core Gradient Text Style Setup
+            const goldGrad = ctx.createLinearGradient(960 - 250, 0, 960 + 250, 0);
+            goldGrad.addColorStop(0, '#fef08a');
+            goldGrad.addColorStop(0.3, '#f59e0b');
+            goldGrad.addColorStop(0.5, '#ffffff');
+            goldGrad.addColorStop(0.7, '#d97706');
+            goldGrad.addColorStop(1, '#fef08a');
+
+            // 4. Main Greeting
+            ctx.font = `italic 140px ${currentFont}`;
+            ctx.fillStyle = goldGrad;
+            ctx.shadowOffsetY = 4;
+            ctx.fillText(greetingIn.value, 960, 400);
+
+            // Large 51 Emblem
+            ctx.font = "800 120px 'Cinzel', serif";
+            ctx.fillStyle = '#ffffff';
+            ctx.fillText("51", 960, 520);
+
+            // 5. Name Line
+            ctx.font = `italic 180px ${currentFont}`;
+            ctx.fillStyle = goldGrad;
+            ctx.shadowOffsetY = 6;
+            ctx.fillText(nameIn.value, 960, 690);
+
+            drawDividerLine(960, 755, 240, currentTheme.highlight);
+
+            // 6. Message Block Wrapping
+            ctx.shadowOffsetY = 0;
+            ctx.shadowBlur = 4;
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.88)';
+            ctx.font = "300 36px 'Montserrat', sans-serif";
+            wrapTextLines(messageIn.value, 960, 825, 1200, 52);
+
+            // CRITICAL STEP: Push raw pixel data directly into the display image element
+            nativeImgOutput.src = canvas.toDataURL('image/png');
+        }
+
+        function drawCorner(x, y, sx, sy, color) {
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.scale(sx, sy);
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(40, 0);
+            ctx.lineTo(0, 0);
+            ctx.lineTo(0, 40);
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        function drawDividerLine(x, y, len, color) {
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(x - len/2, y);
+            ctx.lineTo(x + len/2, y);
+            ctx.stroke();
+
+            ctx.fillStyle = color;
+            ctx.beginPath();
+            ctx.moveTo(x, y - 5);
+            ctx.lineTo(x + 5, y);
+            ctx.lineTo(x, y + 5);
+            ctx.lineTo(x - 5, y);
+            ctx.fill();
+        }
+
+        function wrapTextLines(txt, x, y, maxW, lineH) {
+            const words = txt.split(' ');
+            let currentLine = '';
+            let targetY = y;
+            const accumulatedLines = [];
+
+            for (let n = 0; n < words.length; n++) {
+                let checkLine = currentLine + words[n] + ' ';
+                if (ctx.measureText(checkLine).width > maxW && n > 0) {
+                    accumulatedLines.push(currentLine);
+                    currentLine = words[n] + ' ';
+                } else {
+                    currentLine = checkLine;
+                }
+            }
+            accumulatedLines.push(currentLine);
+
+            for (let i = 0; i < Math.min(accumulatedLines.length, 3); i++) {
+                ctx.fillText(accumulatedLines[i], x, targetY);
+                targetY += lineH;
+            }
+        }
+
+        // Live binding events
+        [bannerIn, greetingIn, nameIn, messageIn, colorIn, fontIn].forEach(el => {
+            el.addEventListener('input', bakeHighResSlide);
+            el.addEventListener('change', bakeHighResSlide);
+        });
+
+        // Initial paint loop trigger
+        window.onload = function() {
+            lucide.createIcons();
+            // Force a slight delay to allow complex web fonts to populate memory
+            setTimeout(bakeHighResSlide, 200);
+        };
+    </script>
+</body>
+</html>
