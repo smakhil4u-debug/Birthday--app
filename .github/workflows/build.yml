@@ -22,16 +22,16 @@ jobs:
           node-version: '20'
 
       - name: Install Dependencies
-        run: npm install
+        run: |
+          npm install
+          npm install @capacitor/android
 
       - name: Build Web App
-        run: |
-          # If you had a build script (like 'npm run build'), you would put it here.
-          # Since we use raw HTML in 'www', we just ensure it exists.
-          ls www
+        run: ls www
 
       - name: Sync Capacitor
-        run: npx cap sync android
+        run: |
+          npx cap sync android
 
       - name: Build with Gradle
         run: |
