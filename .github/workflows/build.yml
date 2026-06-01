@@ -19,7 +19,8 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 'lts/*'
+          node-version: '22'
+          check-latest: true
 
       - name: Debug Android Folder
         run: ls -R android
@@ -31,6 +32,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
+          npm install -g @capacitor/cli@latest
           npm install
           npm install @capacitor/android
 
