@@ -41,7 +41,9 @@ jobs:
 
       - name: Sync Capacitor
         run: |
-          npx cap sync android || (npx cap add android && npx cap sync android)
+          rm -rf android
+          npx cap add android
+          npx cap sync android
 
       - name: Build with Gradle
         run: |
