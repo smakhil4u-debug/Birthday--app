@@ -45,6 +45,11 @@ jobs:
           npx cap add android
           npx cap sync android
 
+      - name: Generate Assets
+        run: |
+          npm install @capacitor/assets
+          npx capacitor-assets generate --android
+
       - name: Build with Gradle
         run: |
           cd android
